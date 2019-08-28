@@ -83,10 +83,12 @@ class _RippleBackdropAnimatePageState extends State<RippleBackdropAnimatePage>
     super.dispose();
   }
 
+  ///勾股定理
   double pythagoreanTheorem(double short, double long) {
     return math.sqrt(math.pow(short, 2) + math.pow(long, 2));
   }
 
+  ///按钮动画
   void popButtonAnimate(context, bool forward) {
     if (!forward) {
       _popButtonController?.stop();
@@ -133,6 +135,7 @@ class _RippleBackdropAnimatePageState extends State<RippleBackdropAnimatePage>
     if (!forward) _backDropFilterController?.stop();
     popButtonAnimate(context, forward);
 
+    ///动画
     _backDropFilterController = AnimationController(
       duration: Duration(milliseconds: _animateDuration),
       vsync: this,
@@ -153,6 +156,7 @@ class _RippleBackdropAnimatePageState extends State<RippleBackdropAnimatePage>
     await _backDropFilterController.forward();
   }
 
+  ///底部按钮
   Widget popButton() {
     Widget button = widget.bottomButton ?? Icon(Icons.add, color: Colors.grey);
     if (widget.bottomButtonRotate) {
@@ -190,12 +194,14 @@ class _RippleBackdropAnimatePageState extends State<RippleBackdropAnimatePage>
     return Stack(
       overflow: Overflow.visible,
       children: <Widget>[
+        ///模糊
         Positioned(
           left: -horizontalOverflow,
           right: -horizontalOverflow,
           top: -topOverflow,
           bottom: -r,
           child: GestureDetector(
+            ///
             behavior: HitTestBehavior.opaque,
             onTap: willPop,
             child: Center(
@@ -244,7 +250,9 @@ class _RippleBackdropAnimatePageState extends State<RippleBackdropAnimatePage>
     );
   }
 
+  ///返回
   Future<bool> willPop() async {
+    ///动画
     await backDropFilterAnimate(context, false);
     if (!_popping) {
       _popping = true;
